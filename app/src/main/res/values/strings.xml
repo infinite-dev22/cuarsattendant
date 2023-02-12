@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Case Reciever</string>
+
+    <!--  Victim Details  -->
+    <string name="victim_name">FirstAid title</string>
+    <string name="description">FirstAid description.</string>
+
+    <string name="main_topbar_title">Incident Cases</string>
+    <string name="aid_topbar_title">First Aid</string>
+    <string name="form_topbar_title">FirstAid Form</string>
+</resources>
