@@ -39,46 +39,12 @@ class DetailViewModel(
             }
             resetState()
         }
-        else {}
-
-
     }
 
     fun setEditFields(FirstAid: FirstAid) {
         detailUiState = detailUiState.copy(
             name = FirstAid.name,
             description = FirstAid.description,
-        )
-
-    }
-
-    fun getFirstAid(firstAidInformationId: String) {
-        repository.getFirstAid(
-            firstAidId = firstAidInformationId,
-            onError = {},
-        ) {
-            detailUiState = detailUiState.copy(selectedFirstAid = it)
-            detailUiState.selectedFirstAid?.let { it1 -> setEditFields(it1) }
-        }
-    }
-
-    fun updateFirstAid(
-        FirstAidInformationId: String
-    ) {
-        repository.updateFirstAid(
-            firstAidId = FirstAidInformationId,
-            userId = user!!.uid,
-            name = detailUiState.name,
-            description = detailUiState.description,
-        ) {
-            detailUiState = detailUiState.copy(updateFirstAidStatus = it)
-        }
-    }
-
-    fun resetFirstAidAddedStatus() {
-        detailUiState = detailUiState.copy(
-            firstAidAddedStatus = false,
-            updateFirstAidStatus = false,
         )
     }
 

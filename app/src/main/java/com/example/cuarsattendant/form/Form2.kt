@@ -30,10 +30,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.cuarsattendant.partials.EditTextInput
 import com.example.cuarsattendant.R
-import com.example.cuarsattendant.partials.TopAppBarSlave
 import com.example.cuarsattendant.models.SharedViewModel
+import com.example.cuarsattendant.partials.EditTextInput
+import com.example.cuarsattendant.partials.TopAppBarSlave
 import com.example.cuarsattendant.viewModels.DetailUiState
 import com.example.cuarsattendant.viewModels.DetailViewModel
 
@@ -55,7 +55,14 @@ fun IncidentForm2(
 
     MaterialTheme {
         Scaffold(
-            topBar = { TopAppBar(title = { TopAppBarSlave(topBarTitle = R.string.form_topbar_title, navController) }) },
+            topBar = {
+                TopAppBar(title = {
+                    TopAppBarSlave(
+                        topBarTitle = R.string.form_topbar_title,
+                        navController
+                    )
+                })
+            },
         ) {
             Column(
                 modifier = Modifier
@@ -73,7 +80,8 @@ fun IncidentForm2(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)
-                        .padding(8.dp))
+                        .padding(8.dp)
+                )
                 EditTextInput(
                     R.string.description,
                     value = detailUiState.description,
@@ -82,16 +90,22 @@ fun IncidentForm2(
                         .fillMaxWidth()
                         .weight(1f)
                         .height(400.dp)
-                        .padding(8.dp))
+                        .padding(8.dp)
+                )
                 Button(
                     onClick = {
                         if (isFormsNotBlank) {
                             detailViewModel?.addGenFirstAid()
-                            Toast.makeText(context, "First aid Saved Successfully", Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                context,
+                                "First aid Saved Successfully",
+                                Toast.LENGTH_LONG
+                            ).show()
                             detailViewModel?.resetState()
                             navController.popBackStack()
                         } else {
-                            Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_LONG)
+                                .show()
                         }
                     },
                     Modifier.padding(0.dp, 20.dp, 0.dp, 50.dp),
@@ -106,8 +120,9 @@ fun IncidentForm2(
                     )
                     Image(
                         painterResource(id = R.drawable.save),
-                        contentDescription ="Cart button icon",
-                        modifier = Modifier.size(20.dp))
+                        contentDescription = "Cart button icon",
+                        modifier = Modifier.size(20.dp)
+                    )
                 }
             }
         }

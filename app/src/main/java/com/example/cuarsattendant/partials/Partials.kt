@@ -34,6 +34,7 @@ import androidx.navigation.NavController
 import com.example.cuarsattendant.user
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlin.system.exitProcess
 
 @Composable
 fun FloatingButton(
@@ -70,8 +71,6 @@ fun EditTextInput(
     modifier: Modifier = Modifier,
     onValueChange: (String) -> Unit,
 ) {
-    var text by remember { mutableStateOf("") }
-
     Row(horizontalArrangement = Arrangement.Center) {
         OutlinedTextField(
             label = {
@@ -91,7 +90,7 @@ fun EditTextInput(
 fun TopAppBarSlave(
     topBarTitle: Int, navController: NavController
 ) {
-    val contextForToast = LocalContext.current.applicationContext
+    LocalContext.current.applicationContext
 
     // Create a boolean variable
     // to store the display menu state
@@ -120,16 +119,18 @@ fun TopAppBarSlave(
             // Creating a dropdown menu
             DropdownMenu(expanded = mDisplayMenu, onDismissRequest = { mDisplayMenu = false }) {
                 DropdownMenuItem(text = { Text(text = user?.displayName.toString()) },
-                    onClick = { /*TODO*/ })
+                    onClick = {
+                        Toast.makeText(mContext, user?.displayName.toString(), Toast.LENGTH_SHORT).show()
+                    })
 
                 // Creating dropdown menu item, on click
                 // would create a Toast message
                 DropdownMenuItem(text = {
                     Text(text = "Logout")
                 }, onClick = {
-                    Toast.makeText(mContext, "Logout", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(mContext, "Logged out", Toast.LENGTH_SHORT).show()
                     Firebase.auth.signOut()
-                    System.exit(-1)
+                    exitProcess(-1)
                 })
             }
         },
@@ -140,7 +141,7 @@ fun TopAppBarSlave(
 @Composable
 fun TopAppBarMain(topBarTitle: Int) {
 
-    val contextForToast = LocalContext.current.applicationContext
+    LocalContext.current.applicationContext
     // Create a boolean variable
     // to store the display menu state
     var mDisplayMenu by remember { mutableStateOf(false) }
@@ -176,7 +177,14 @@ fun TopAppBarMain(topBarTitle: Int) {
             ) {
                 DropdownMenuItem(
                     text = { Text(text = user?.displayName.toString()) },
-                    onClick = { /*TODO*/ })
+                    onClick = {
+                        Toast.makeText(
+                            mContext,
+                            "Logged in as ${user?.displayName.toString()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    },
+                )
 
                 // Creating dropdown menu item, on click
                 // would create a Toast message
@@ -187,7 +195,7 @@ fun TopAppBarMain(topBarTitle: Int) {
                     onClick = {
                         Toast.makeText(mContext, "Logout", Toast.LENGTH_SHORT).show()
                         Firebase.auth.signOut()
-                        System.exit(-1)
+                        exitProcess(-1)
                     })
             }
         },

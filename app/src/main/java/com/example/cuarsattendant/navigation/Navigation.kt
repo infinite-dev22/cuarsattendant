@@ -33,9 +33,9 @@ fun NavigationMap(detailViewModel: DetailViewModel){
         composable(
             route = Screen.AidScreen.route
         ){
-            FirstAidScreen(navController = navController,
+            FirstAidScreen(
+                navController = navController,
                 viewModel = FirstAidViewModel(),
-                detailViewModel = detailViewModel,
                 sharedViewModel = sharedViewModel,
             )
         }

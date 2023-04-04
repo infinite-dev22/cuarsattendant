@@ -20,11 +20,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.cuarsattendant.partials.FloatingButton
 import com.example.cuarsattendant.R
-import com.example.cuarsattendant.navigation.Screen
-import com.example.cuarsattendant.partials.TopAppBarMain
 import com.example.cuarsattendant.models.IncidentInformation
+import com.example.cuarsattendant.navigation.Screen
+import com.example.cuarsattendant.partials.FloatingButton
+import com.example.cuarsattendant.partials.TopAppBarMain
 import com.example.cuarsattendant.sealed.IncidentDataState
 import com.example.cuarsattendant.viewModels.IncidentsViewModel
 
@@ -38,8 +38,11 @@ fun IncidentsScreen(
         topBar = { TopAppBar(title = { TopAppBarMain(topBarTitle = R.string.main_topbar_title) }) },
 
         floatingActionButton = {
-            FloatingButton("First Aid", Icons.Rounded.List, "First Aid", { navController.navigate(
-                Screen.AidScreen.route) })
+            FloatingButton("First Aid", Icons.Rounded.List, "First Aid") {
+                navController.navigate(
+                    Screen.AidScreen.route
+                )
+            }
         },
     ) {
         Column(
@@ -138,43 +141,45 @@ fun CardItem(
                 .fillMaxSize()
                 .padding(10.dp)
         ) {
-            Column() {
-                Text(
-                    text = "Name: ${incident.name!!}",
-                    fontSize = MaterialTheme.typography.headlineSmall.fontSize,
-                    textAlign = TextAlign.Center,
-                    color = Color.White
-                )
-                Divider(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .width(1.dp),
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Text(
-                    text = "Telephone: ${incident.phone!!}",
-                    fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-                    textAlign = TextAlign.Center,
-                    color = Color.White
-                )
-                Text(
-                    text = "Email: ${incident.email!!}",
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    textAlign = TextAlign.Center,
-                    color = Color.White
-                )
-                Text(
-                    text = "Address: ${incident.address!!}",
-                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                    textAlign = TextAlign.Center,
-                    color = Color.White
-                )
-                Text(
-                    text = "Accident at: ${incident.incidentLocation!!}",
-                    fontSize = MaterialTheme.typography.labelSmall.fontSize,
-                    textAlign = TextAlign.Center,
-                    color = Color.White
-                )
+            Row {
+                Column {
+                    Text(
+                        text = "Name: ${incident.name}",
+                        fontSize = MaterialTheme.typography.headlineSmall.fontSize,
+                        textAlign = TextAlign.Center,
+                        color = Color.White
+                    )
+                    Divider(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .width(1.dp),
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Text(
+                        text = "Telephone: ${incident.phone}",
+                        fontSize = MaterialTheme.typography.bodyLarge.fontSize,
+                        textAlign = TextAlign.Center,
+                        color = Color.White
+                    )
+                    Text(
+                        text = "Email: ${incident.email}",
+                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                        textAlign = TextAlign.Center,
+                        color = Color.White
+                    )
+                    Text(
+                        text = "Address: ${incident.address}",
+                        fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                        textAlign = TextAlign.Center,
+                        color = Color.White
+                    )
+                    Text(
+                        text = "Accident at: ${incident.incidentLocation}",
+                        fontSize = MaterialTheme.typography.labelSmall.fontSize,
+                        textAlign = TextAlign.Center,
+                        color = Color.White
+                    )
+                }
             }
         }
 

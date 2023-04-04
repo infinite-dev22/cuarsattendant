@@ -21,14 +21,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.cuarsattendant.partials.FloatingButton
 import com.example.cuarsattendant.R
-import com.example.cuarsattendant.navigation.Screen
-import com.example.cuarsattendant.partials.TopAppBarSlave
 import com.example.cuarsattendant.models.FirstAid
 import com.example.cuarsattendant.models.SharedViewModel
+import com.example.cuarsattendant.navigation.Screen
+import com.example.cuarsattendant.partials.FloatingButton
+import com.example.cuarsattendant.partials.TopAppBarSlave
 import com.example.cuarsattendant.sealed.DataState
-import com.example.cuarsattendant.viewModels.DetailViewModel
 import com.example.cuarsattendant.viewModels.FirstAidViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,15 +35,24 @@ import com.example.cuarsattendant.viewModels.FirstAidViewModel
 fun FirstAidScreen(
     navController: NavController,
     viewModel: FirstAidViewModel,
-    sharedViewModel: SharedViewModel,
-    detailViewModel: DetailViewModel
+    sharedViewModel: SharedViewModel
 ) {
     Scaffold(
-        topBar = { TopAppBar(title = { TopAppBarSlave(topBarTitle = R.string.aid_topbar_title, navController) }) },
+        topBar = {
+            TopAppBar(title = {
+                TopAppBarSlave(
+                    topBarTitle = R.string.aid_topbar_title,
+                    navController
+                )
+            })
+        },
 
         floatingActionButton = {
-            FloatingButton("Add", Icons.Rounded.Add, "Add First Aid", { navController.navigate(
-                Screen.FormScreenAdd.route) })
+            FloatingButton("Add", Icons.Rounded.Add, "Add First Aid") {
+                navController.navigate(
+                    Screen.FormScreenAdd.route
+                )
+            }
         },
     ) {
         Column(
@@ -68,8 +76,7 @@ fun FirstAidScreen(
                     ShowLazyList(
                         result.data,
                         navController,
-                        sharedViewModel,
-                        detailViewModel
+                        sharedViewModel
                     )
                 }
 
@@ -105,8 +112,7 @@ fun FirstAidScreen(
 fun ShowLazyList(
     firstAid: MutableList<FirstAid>,
     navController: NavController,
-    sharedViewModel: SharedViewModel,
-    detailViewModel: DetailViewModel
+    sharedViewModel: SharedViewModel
 ) {
     if (firstAid.size > 0) {
         LazyColumn {
@@ -114,8 +120,7 @@ fun ShowLazyList(
                 CardItem(
                     firstAid,
                     navController,
-                    sharedViewModel,
-                    detailViewModel
+                    sharedViewModel
                 )
             }
         }
@@ -140,8 +145,7 @@ fun ShowLazyList(
 fun CardItem(
     firstAid: FirstAid,
     navController: NavController,
-    sharedViewModel: SharedViewModel,
-    detailViewModel: DetailViewModel
+    sharedViewModel: SharedViewModel
 ) {
     Card(
         modifier = Modifier
@@ -161,7 +165,7 @@ fun CardItem(
         ) {
             Column {
                 Text(
-                    text = "${firstAid.name!!}",
+                    text = firstAid.name,
                     fontSize = MaterialTheme.typography.headlineSmall.fontSize,
                     textAlign = TextAlign.Center,
                     color = Color.White
@@ -173,7 +177,7 @@ fun CardItem(
                     color = MaterialTheme.colorScheme.primary
                 )
                 Text(
-                    text = "${firstAid.description!!}",
+                    text = firstAid.description,
                     fontSize = MaterialTheme.typography.bodySmall.fontSize,
                     textAlign = TextAlign.Center,
                     color = Color.White

@@ -8,5 +8,5 @@ import androidx.datastore.preferences.preferencesDataStore
 
 // Singleton instance of Datastore preference
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "AttendantPreference")
-class MyApplication: Application() {
-}
+
+class MyApplication : Application()

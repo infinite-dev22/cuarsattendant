@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.cuarsattendant.models.IncidentInformation
 import com.example.cuarsattendant.sealed.IncidentDataState
-import com.example.cuarsattendant.user
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase

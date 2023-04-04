@@ -1,39 +1,31 @@
 package com.example.cuarsattendant.services
 
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.example.cuarsattendant.dataStore
-import com.example.cuarsattendant.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-val CHANNEL_ID = "0"
+const val CHANNEL_ID = "0"
 
 class IncidentFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
         if (message.data.isNotEmpty()) {
-            message.data.let {
-                Log.d("CloudMessage", "Message Notification Body: ${it["body"]}")
-            }
             if (message.notification != null) {
-                var builder = NotificationCompat.Builder(this, CHANNEL_ID)
+                NotificationCompat.Builder(this, CHANNEL_ID)
                     .setContentTitle(message.notification!!.title)
-                    .setContentText(message.notification!!.body)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-
-                Log.d("CloudMessage", "Notificatio: ${ message.notification }")
-                Log.d("CloudMessage", "Message Notificatio title: ${ message.notification!!.title }")
-                Log.d("CloudMessage", "Message Notificatio Body: ${ message.notification!!.body }")
-
+                    .setContentText(message.notification!!.body).priority =
+                    NotificationCompat.PRIORITY_DEFAULT
             }
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         GlobalScope.launch {
